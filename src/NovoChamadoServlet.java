@@ -1,5 +1,8 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,9 +47,18 @@ public class NovoChamadoServlet extends HttpServlet{
 			String nome = request.getParameter("txtNome");
 			
 			Class.forName("com.mysql.jdbc.Driver");
+			
+			try {
+				
+				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ssc","root","");
+				
+			} catch (SQLException e) {
+			
+				out.println("Erro de Conexão com Driver");
+			}
 				
 		
-		} catch (ClassNotFoundException e) {			
+		} catch (ClassNotFoundException ex) {			
 			out.println("Erro de Conexão com Driver");
 		}		
 		
