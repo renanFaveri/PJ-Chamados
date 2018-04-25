@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,7 +29,16 @@ try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scc","root","");
 			
+			if(request.getParameter("id")!=null) {
 			
+			int ID = Integer.parseInt(request.getParameter("id"));
+			String SQLDelete = "DELETE From tab_chamados WHERE id=?";
+			
+			PreparedStatement pstn = conn.prepareStatement(SQLDelete);
+			pstn.setInt(1,ID);
+			pstn.execute();
+			
+			}
 			
 			Statement stn= conn.createStatement();
 			ResultSet rs = stn.executeQuery(SQL);
